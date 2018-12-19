@@ -1,4 +1,16 @@
 class DateUtils {
+  /// Number of milliseconds in a standard second.
+  static const int MILLIS_PER_SECOND = 1000;
+
+  /// Number of milliseconds in a standard minute.
+  static const int MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
+
+  /// Number of milliseconds in a standard hour.
+  static const int MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
+
+  /// Number of milliseconds in a standard day.
+  static const int MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
+
   // Weekday constants that are returned by [weekday] method:
   static const int YEAR = 1;
   static const int MONTH = 2;
@@ -63,9 +75,9 @@ class DateUtils {
 
   ///
   /// set the value of the field and zero the value after the field
-  /// zero (hour: 9) 将返回 yyyy-MM-dd 09:00:00
-  /// zero (hour: 9, minute: 30) 将返回 yyyy-MM-dd 09:30:00
-  static DateTime zero(DateTime time, {year: -1, month: -1, day: -1, hour: -1, minute: -1, second: -1, millisecond: -1, microsecond: -1}) {
+  /// truncate (hour: 9) 将返回 yyyy-MM-dd 09:00:00
+  /// truncate (hour: 9, minute: 30) 将返回 yyyy-MM-dd 09:30:00
+  static DateTime truncate(DateTime time, {year: -1, month: -1, day: -1, hour: -1, minute: -1, second: -1, millisecond: -1, microsecond: -1}) {
     assert(time != null);
     return DateTime(
       year >= 0 ? year : time.year,
@@ -82,10 +94,10 @@ class DateUtils {
   ///
   /// Determines if two dates are equal up to no more than the specified
   /// most significant field.
-  /// @param date1 the first date, not <code>null</code>
-  /// @param date2 the second date, not <code>null</code>
-  /// @param field the field from {@code Calendar}
-  /// @return <code>true</code> if equal; otherwise <code>false</code>
+  /// @param date1 the first date, not null
+  /// @param date2 the second date, not null
+  /// @param field the field as [YEAR,MONTH,DAY ...]
+  /// @return true if equal; otherwise false
   static bool truncatedEquals(DateTime time1, DateTime time2, int field) {
     if (time1 == null && time2 == null) {
       return true;

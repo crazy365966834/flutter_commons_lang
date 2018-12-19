@@ -15,7 +15,7 @@ void main() {
 
   DateTime time3 = DateUtils.yesterday();
   DateTime time4 = DateUtils.set(DateTime.now(), year: 2017);
-  DateTime time5 = DateUtils.zero(DateTime.now(), hour: 9, minute: 30);
+  DateTime time5 = DateUtils.truncate(DateTime.now(), hour: 9, minute: 30);
   print(time3);
   print(time4);
   print(time5);
