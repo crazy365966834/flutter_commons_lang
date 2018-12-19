@@ -16,14 +16,14 @@ DateUtils.truncatedEquals(time1,time5,DateUtils.DAY);
 DateUtils.daysOfTheMonth(time1);
 ```
 Output:
-> 2018-12-18 00:00:00<br>
-> 2018-12-18 09:00:00<br>
-> 2018-12-17 00:00:00<br>
-> 2017-12-18 14:54:11.763713<br>
-> 2018-12-18 09:30:00<br>
-> true<br>
-> true<br>
-> 31<br>
+> 2018-12-18 00:00:00
+> 2018-12-18 09:00:00
+> 2018-12-17 00:00:00
+> 2017-12-18 14:54:11.763713
+> 2018-12-18 09:30:00
+> true
+> true
+> 31
 
 ## Getting Started
 
