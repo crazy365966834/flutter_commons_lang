@@ -1,6 +1,6 @@
 # flutter_commons_lang
 
-commons_lang for flutter
+commons_lang for flutter, provide DateUtils, StringUtils and so on...
 
 ## Usage
 
