@@ -43,7 +43,7 @@ class DateUtils {
     "yyyy/MM/dd"
   ];
 
-  static String format(DateTime time, {String format = DEFAULT_FORMAT}) {
+  static String format(DateTime time, [String format = DEFAULT_FORMAT]) {
     if (time == null) return "";
     return DateFormat(format).format(time);
   }

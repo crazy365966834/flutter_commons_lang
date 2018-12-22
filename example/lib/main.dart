@@ -32,7 +32,7 @@ void main() {
   DateTime time = DateUtils.parse(str);
   print(time);
   print(DateUtils.format(time));
-  print(DateUtils.format(time, format: "yyyy.MM.dd"));
+  print(DateUtils.format(time, "yyyy.MM.dd"));
 
   // 2018-05-01 12:27:35
   DateTime time1 = DateTime(2018, 5, 1, 12, 27, 35);

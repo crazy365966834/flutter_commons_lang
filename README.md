@@ -54,7 +54,7 @@ as daysOfTheMonth
 ```
 DateTime time = DateUtils.parse("2018-12-11");
 DateUtils.format(time);
-DateUtils.format(time, format: "yyyy.MM.dd");
+DateUtils.format(time, "yyyy.MM.dd");
 
 DateTime time1 = DateUtils.today();
 DateTime time2 = DateUtils.today(hour:9);
