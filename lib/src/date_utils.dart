@@ -105,6 +105,22 @@ class DateUtils {
     );
   }
 
+  /// return tomorrow's 00:00:00
+  /// also return today's hour:minute:second
+  static DateTime tomorrow({hour: -1, minute: -1, second: -1, millisecond: -1, microsecond: -1}) {
+    DateTime now = DateTime.now();
+    return DateTime(
+      now.year,
+      now.month,
+      now.day + 1,
+      hour >= 0 ? hour : 0,
+      minute >= 0 ? minute : 0,
+      second >= 0 ? second : 0,
+      millisecond >= 0 ? millisecond : 0,
+      microsecond >= 0 ? microsecond : 0,
+    );
+  }
+
   static DateTime beginOfTheDate(DateTime time) {
     return DateTime(time.year, time.month, time.day);
   }
