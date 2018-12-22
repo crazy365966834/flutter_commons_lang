@@ -11,7 +11,9 @@ provider add/subtract/multiple/divide to safe calculate with scale,keep param's 
 NumberUtils.getScale(1.12346);
 NumberUtils.setScale(1.1246, scale: 2, roundingMode: ROUND_UP);
 
-NumberUtils.add(0.2, 0.1);
+int a = NumberUtils.add(1, 2);
+double b = NumberUtils.add(1, 2, returnType: double);
+
 NumberUtils.add(0.3, 0.6);
 NumberUtils.subtract(0.3, 0.2);
 NumberUtils.multiply(0.3, 1.5);

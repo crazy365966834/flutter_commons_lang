@@ -3,7 +3,7 @@ pubspec.lock
 .DS_Store
 .dart_tool/
 .idea
-.iml
+*.iml
 
 .packages
 .pub/
