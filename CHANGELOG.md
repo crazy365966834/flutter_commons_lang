@@ -1,3 +1,7 @@
-## 1.0.0
+## 1.0.3
+* StringUtils
+* NumberUtils
+* ListUtils
 
-* DateTime Tools
+## 1.0.0
+* DateUtils

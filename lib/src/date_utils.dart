@@ -1,25 +1,77 @@
+import 'package:flutter_commons_lang/src/string_utils.dart';
+import 'package:intl/intl.dart';
+
+/// Number of milliseconds in a standard second.
+const MILLIS_PER_SECOND = 1000;
+
+/// Number of milliseconds in a standard minute.
+const MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
+
+/// Number of milliseconds in a standard hour.
+const MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
+
+/// Number of milliseconds in a standard day.
+const MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
+
 class DateUtils {
-  /// Number of milliseconds in a standard second.
-  static const int MILLIS_PER_SECOND = 1000;
+  static const ERA = 0;
+  static const YEAR = 1;
+  static const MONTH = 2;
+  static const WEEK_OF_YEAR = 3;
+  static const WEEK_OF_MONTH = 4;
+  static const DATE = 5;
+  static const DAY_OF_MONTH = 5;
+  static const DAY_OF_YEAR = 6;
+  static const DAY_OF_WEEK = 7;
+  static const DAY_OF_WEEK_IN_MONTH = 8;
+  static const AM_PM = 9;
+  static const HOUR = 10;
+  static const HOUR_OF_DAY = 11;
+  static const MINUTE = 12;
+  static const SECOND = 13;
+  static const MILLISECOND = 14;
 
-  /// Number of milliseconds in a standard minute.
-  static const int MILLIS_PER_MINUTE = 60 * MILLIS_PER_SECOND;
+  static const DEFAULT_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
-  /// Number of milliseconds in a standard hour.
-  static const int MILLIS_PER_HOUR = 60 * MILLIS_PER_MINUTE;
+  /// date formats
+  static const DATE_FORMATS = [
+    "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
+    "yyyy/MM/dd'T'HH:mm:ss.SSSZ",
+    "yyyy-MM-dd HH:mm:ss",
+    "yyyy/MM/dd HH:mm:ss",
+    "yyyy-MM-dd",
+    "yyyy/MM/dd"
+  ];
 
-  /// Number of milliseconds in a standard day.
-  static const int MILLIS_PER_DAY = 24 * MILLIS_PER_HOUR;
+  static String format(DateTime time, {String format = DEFAULT_FORMAT}) {
+    if (time == null) return "";
+    return DateFormat(format).format(time);
+  }
 
-  // Weekday constants that are returned by [weekday] method:
-  static const int YEAR = 1;
-  static const int MONTH = 2;
-  static const int DAY = 3;
-  static const int HOUR = 4;
-  static const int MINUTE = 5;
-  static const int SECOND = 6;
-  static const int MILLISECOND = 7;
-  static const int MICROSECOND = 8;
+  static DateTime parse(String str, {DateTime defaultValue, String format, utc = false}) {
+    if (StringUtils.isBlank(str)) {
+      return defaultValue;
+    }
+
+    DateTime value;
+    if (format != null) {
+      try {
+        value = DateFormat(format).parse(str, utc);
+        if (value != null) {
+          return value;
+        }
+      } catch (e) {}
+    }
+    for (String format in DATE_FORMATS) {
+      try {
+        value = DateFormat(format).parse(str, utc);
+        if (value != null) {
+          return value;
+        }
+      } catch (e) {}
+    }
+    return defaultValue;
+  }
 
   /// return today's 00:00:00
   /// also return today's hour:minute:second
@@ -77,6 +129,24 @@ class DateUtils {
   /// set the value of the field and zero the value after the field
   /// truncate (hour: 9) 将返回 yyyy-MM-dd 09:00:00
   /// truncate (hour: 9, minute: 30) 将返回 yyyy-MM-dd 09:30:00
+  static DateTime round(DateTime time, {year: -1, month: -1, day: -1, hour: -1, minute: -1, second: -1, millisecond: -1, microsecond: -1}) {
+    assert(time != null);
+    return DateTime(
+      year >= 0 ? year : time.year,
+      month >= 0 ? month : year >= 0 ? 1 : time.month,
+      day >= 0 ? day : month >= 0 ? 1 : time.day,
+      hour >= 0 ? hour : day >= 0 ? 0 : time.hour,
+      minute >= 0 ? minute : hour >= 0 ? 0 : time.minute,
+      second >= 0 ? second : minute >= 0 ? 0 : time.second,
+      millisecond >= 0 ? millisecond : second >= 0 ? 0 : time.millisecond,
+      microsecond >= 0 ? microsecond : millisecond > 0 ? 0 : time.microsecond,
+    );
+  }
+
+  ///
+  /// set the value of the field and zero the value after the field
+  /// truncate (hour: 9) 将返回 yyyy-MM-dd 09:00:00
+  /// truncate (hour: 9, minute: 30) 将返回 yyyy-MM-dd 09:30:00
   static DateTime truncate(DateTime time, {year: -1, month: -1, day: -1, hour: -1, minute: -1, second: -1, millisecond: -1, microsecond: -1}) {
     assert(time != null);
     return DateTime(
@@ -92,8 +162,7 @@ class DateUtils {
   }
 
   ///
-  /// Determines if two dates are equal up to no more than the specified
-  /// most significant field.
+  /// Determines if two dates are equal up to no more than the specified most significant field.
   /// @param date1 the first date, not null
   /// @param date2 the second date, not null
   /// @param field the field as [YEAR,MONTH,DAY ...]
@@ -115,7 +184,7 @@ class DateUtils {
       return equals;
     }
     equals = time1.day == time2.day;
-    if (equals == false || field == DAY) {
+    if (equals == false || field == DAY_OF_MONTH) {
       return equals;
     }
     equals = time1.hour == time2.hour;

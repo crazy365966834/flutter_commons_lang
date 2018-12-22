@@ -1,8 +1,15 @@
 name: flutter_commons_lang
-description: commons_lang for flutter, utils for op DateTime, String
-version: 1.0.2
+description: commons_lang for flutter, utils for op DateTime, String, List, num
+version: 1.0.3
 author: cRazyx <crz365966834@qq.com>
 homepage: https://github.com/crazy365966834/flutter_commons_lang
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  # https://github.com/a14n/dart-decimal
+  decimal: ^0.3.2
